@@ -7,7 +7,7 @@ s=-10;
 MAE=[]; 
 L_1=[];
 
-%L1¡¢L2 µÄ¸üĞÂ
+%L1ã€L2 çš„æ›´æ–°
 while 1
     x_t=x(:,t);
     yl_t=yl(t);
@@ -26,7 +26,7 @@ while 1
         L2(1,j)=max(0,1+w*x_t-theta(1,yl_t+j));
         %L2(1,j)=1+w*x-theta2(1,j)
     end
-    % w thetµÄ¸üĞÂ
+    % w thetçš„æ›´æ–°
     [SL,SR] = SCA(L1,L2,w,x_t,theta,k,yl_t,yr_t,C,s);
     [~,n1]=size(SL);
     [~,n2]=size(SR);
@@ -34,11 +34,11 @@ while 1
     b=0;
     c=0;
     for i11=1:1:n1
-        i_11=SL(:,i11);%Ë÷Òı
+        i_11=SL(:,i11);%ç´¢å¼•
         b=b+L1(:,i_11);
     end
     for i22=1:1:n2
-        i_22=SR(:,i22);%Ë÷Òı
+        i_22=SR(:,i22);%ç´¢å¼•
         c=c+L2(:,i_22-yl_t);
     end
     if b-c==0
@@ -50,7 +50,7 @@ while 1
     w=w+dert_w+(a.*x_t)';
     
     for ii1=1:1:n1
-        ii_1=SL(:,ii1);%Ë÷Òı
+        ii_1=SL(:,ii1);%ç´¢å¼•
         t1=w*x_t-theta(:,ii_1);
     if t1<=s
         dert_theta_i1=2*C*(s-t1)*(-1)*(-1);
@@ -61,12 +61,12 @@ while 1
         if lambda_i<=0 || lambda_i>1000000%==Inf%%%%%%%important
             theta(:,ii_1)=theta(:,ii_1);
         else
-           theta(:,ii_1)=theta(:,ii_1)+dert_theta_i1-lambda_i;%Ö»ÓĞ´óÓÚ0µÄÄÇĞ©iµÄÔªËØ²Å¸üĞÂ
+           theta(:,ii_1)=theta(:,ii_1)+dert_theta_i1-lambda_i;%åªæœ‰å¤§äº0çš„é‚£äº›içš„å…ƒç´ æ‰æ›´æ–°
         end
     end
     
     for ii2=1:1:n2
-        ii_2=SR(:,ii2);%Ë÷Òı
+        ii_2=SR(:,ii2);%ç´¢å¼•
         t2=theta(:,ii_2)-w*x_t;
     if t2<=s
         dert_theta_i2=2*C*(s-t2)*(-1)*1;
@@ -77,12 +77,12 @@ while 1
         if mu_j<=0 || mu_j>10000000%==inf%%%%%%%imporant
         theta(:,ii_2)=theta(:,ii_2);
         else
-          theta(:,ii_2)=theta(:,ii_2)+dert_theta_i2+mu_j;%Ö»ÓĞ´óÓÚ0µÄÄÇĞ©iµÄÔªËØ²Å¸üĞÂ
+          theta(:,ii_2)=theta(:,ii_2)+dert_theta_i2+mu_j;%åªæœ‰å¤§äº0çš„é‚£äº›içš„å…ƒç´ æ‰æ›´æ–°
       end 
     end
     x_1=(x1(t+1,1:7))';
     y=w*x_1;
-    [L,R]=predict(k,y,theta);%Êä³öÇø¼ä¶Ëµã
+    [L,R]=predict(k,y,theta);%è¾“å‡ºåŒºé—´ç«¯ç‚¹
      L_1=[L_1;L];
     [A,MAE_1,MAE_2]=compare(yl,L_1,t);
     if MAE_1==0
